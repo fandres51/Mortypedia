@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
-import HorizontalCard from '../components/HorizontalCard/HorizontalCard';
+import HorizontalCard from '../components/HorizontalCard';
 
 export default function EpisodesScreen() {
   const [episodes, setEpisodes] = React.useState([]);
@@ -20,17 +20,6 @@ export default function EpisodesScreen() {
           };
         }),
       );
-      // console.log(
-      //   '\n\n',
-      //   json.results.map(result => {
-      //     return {
-      //       id: result.id,
-      //       name: result.name,
-      //       air_date: result.air_date,
-      //       episode: result.episode,
-      //     };
-      //   }),
-      // );
     } catch (error) {
       console.error(error);
     } finally {

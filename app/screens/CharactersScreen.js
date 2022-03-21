@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
-import Card from '../components/Card/Card';
+import Card from '../components/Card';
 
 export default function CharactersScreen({navigation}) {
   const [characters, setCharacters] = React.useState([]);
@@ -13,7 +13,7 @@ export default function CharactersScreen({navigation}) {
 
   const getCharacters = async () => {
     try {
-      const response = await fetch('https://rickandmortyapi.com/api/character');
+      const response = await fetch('https://rickandmortyapi.com/api/character?page=1');
       const json = await response.json();
       setCharacters(
         json.results.map(result => {
@@ -28,12 +28,6 @@ export default function CharactersScreen({navigation}) {
           };
         }),
       );
-      //   console.log(
-      //     '\n\n',
-      //     json.results.map(result => {
-      //       return {name: result.name, image: result.image, id: result.id};
-      //     }),
-      //   );
     } catch (error) {
       console.error(error);
     } finally {
