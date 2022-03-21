@@ -12,8 +12,34 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            title: 'Mortipedia',
+            headerStyle: {
+              backgroundColor: '#252526',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={({route}) => ({
+            title: route.params.name,
+            headerStyle: {
+              backgroundColor: '#3e3e3e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          })}
+        />
       </Stack.Navigator>
       {/* <Tab.Navigator>
         <Tab.Screen name="Characters" component={CharactersScreen} />

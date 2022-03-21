@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
   ActivityIndicator,
@@ -78,6 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ededed',
+    backgroundColor: '#252526',
   },
 });

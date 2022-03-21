@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     padding: 8,
     margin: 8,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#3e3e3e',
     width: 110,
     height: 150,
     alignItems: 'center'
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
     marginTop: 7,
-    maxHeight: 37
+    maxHeight: 37,
+    color: 'white'
   }
 });
