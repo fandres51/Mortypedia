@@ -1,2 +1,2 @@
-# CRUD created with the Rick and Morty api
-https://rickandmortyapi.com/
+# Mortypedia
+## A Rick and Morty encyclopedia using the R&M api: https://rickandmortyapi.com/
