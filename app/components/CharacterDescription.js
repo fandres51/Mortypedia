@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
   featureTitle: {
     fontWeight: '600',
     color: 'white',
-    fontSize: 22,
+    fontSize: 20,
   },
   feature: {
-    fontSize: 18,
+    fontSize: 15,
     marginVertical: 10,
     color: 'white',
   },
