@@ -1,124 +1,83 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import Card from '../components/Card/Card';
 
-export default function CharactersScreen() {
+export default function CharactersScreen({navigation}) {
+  const [characters, setCharacters] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
-  const DATA = [
-    {
-      id: 1,
-      name: 'Rick Sanchez',
-      image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-    },
-    {
-      id: 2,
-      name: 'Morty Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
-    },
-    {
-      id: 3,
-      name: 'Summer Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/3.jpeg',
-    },
-    {
-      id: 4,
-      name: 'Beth Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/4.jpeg',
-    },
-    {
-      id: 5,
-      name: 'Jerry Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/5.jpeg',
-    },
-    {
-      id: 6,
-      name: 'Rick Sanchez',
-      image: 'https://rickandmortyapi.com/api/character/avatar/6.jpeg',
-    },
-    {
-      id: 7,
-      name: 'Morty Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/7.jpeg',
-    },
-    {
-      id: 8,
-      name: 'Summer Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/8.jpeg',
-    },
-    {
-      id: 9,
-      name: 'Beth Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/9.jpeg',
-    },
-    {
-      id: 10,
-      name: 'Jerry Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/10.jpeg',
-    },
-    {
-      id: 11,
-      name: 'Rick Sanchez',
-      image: 'https://rickandmortyapi.com/api/character/avatar/11.jpeg',
-    },
-    {
-      id: 12,
-      name: 'Morty Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/12.jpeg',
-    },
-    {
-      id: 13,
-      name: 'Summer Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/13.jpeg',
-    },
-    {
-      id: 14,
-      name: 'Beth Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/14.jpeg',
-    },
-    {
-      id: 15,
-      name: 'Jerry Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/15.jpeg',
-    },
-    {
-      id: 16,
-      name: 'Rick Sanchez',
-      image: 'https://rickandmortyapi.com/api/character/avatar/16.jpeg',
-    },
-    {
-      id: 17,
-      name: 'Morty Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/17.jpeg',
-    },
-    {
-      id: 18,
-      name: 'Summer Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/18.jpeg',
-    },
-    {
-      id: 19,
-      name: 'Beth Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/19.jpeg',
-    },
-    {
-      id: 20,
-      name: 'Jerry Smith',
-      image: 'https://rickandmortyapi.com/api/character/avatar/20.jpeg',
-    },
-  ];
+  const getCharacters = async () => {
+    try {
+      const response = await fetch('https://rickandmortyapi.com/api/character');
+      const json = await response.json();
+      setCharacters(
+        json.results.map(result => {
+          return {
+            name: result.name,
+            image: result.image,
+            id: result.id,
+            species: result.species,
+            gender: result.gender,
+            origin: result.origin.name,
+            location: result.location.name,
+          };
+        }),
+      );
+      //   console.log(
+      //     '\n\n',
+      //     json.results.map(result => {
+      //       return {name: result.name, image: result.image, id: result.id};
+      //     }),
+      //   );
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const showDetails = character => {
+    navigation.navigate('Details', character);
+  };
+
+  React.useEffect(() => {
+    getCharacters();
+  }, []);
 
   const renderItem = ({item}) => (
-    <Card name={item.name} image={item.image}></Card>
+    <Card
+      name={item.name}
+      image={item.image}
+      onpress={() => showDetails(item)}></Card>
   );
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        numColumns={2}
-      />
+    <View style={styles.container}>
+      {!loading ? (
+        <FlatList
+          data={characters}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+        />
+      ) : (
+        <ActivityIndicator size="large" color="#0000ff" />
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ededed',
+  },
+});

@@ -1,21 +1,25 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import CharactersScreen from './screens/CharactersScreen';
-import PlacesScreen from './screens/PlacesScreen';
-import EpisodesScreen from './screens/EpisodesScreen';
+import {Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import HomeScreen from './screens/HomeScreen';
+import DetailsScreen from './screens/DetailsScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+      {/* <Tab.Navigator>
         <Tab.Screen name="Characters" component={CharactersScreen} />
         <Tab.Screen name="Places" component={PlacesScreen} />
         <Tab.Screen name="Episodes" component={EpisodesScreen} />
-      </Tab.Navigator>
+      </Tab.Navigator> */}
     </NavigationContainer>
   );
 }
